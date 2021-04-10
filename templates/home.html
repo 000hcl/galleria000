@@ -1,0 +1,16 @@
+<title>Galleria000 - Home</title>
+Hello, {{ session.username }}!
+<br>
+<a href="/upload"> upload </a>
+<br>
+ <a href="/logout">Log out</a>
+
+
+{% for i in range(count) %}
+<hr>
+<img src="/show/{{ id[i][0] }}" height="200"><a href="/show/{{ id[i][0] }}"> show full</a> 
+<p>Title: {{ title[i][0] }}
+<p>Description: {{ description[i][0] }}
+<p>
+{% endfor %}
+

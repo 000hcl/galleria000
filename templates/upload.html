@@ -1,0 +1,26 @@
+<title>Galleria000 - Upload</title>
+<form action="/send" method="POST" enctype="multipart/form-data">
+Upload an image
+<p>
+File:
+<br>
+<input type="file" name="file">
+<p>
+Title:
+<br>
+<input type="text" name="title">
+<p>
+Description:
+<br>
+<textarea name="description" rows="3" cols="40"></textarea>
+<p>
+Medium:
+<br>
+<input type="checkbox" name="medium" value="1"> Traditional
+<input type="checkbox" name="medium" value="2"> Digital
+<input type="checkbox" name="medium" value="3"> Photography
+<input type="checkbox" name="medium" value="4"> Mixed media
+<input type="checkbox" name="medium" value="5"> Other
+<p>
+<input type="submit" value="Submit">
+</form>

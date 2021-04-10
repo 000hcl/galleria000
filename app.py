@@ -73,7 +73,7 @@ def send():
     title = request.form["title"]
     description = request.form["description"]
     data = file.read()
-    mediums = request.form.getlist("medium")https://galleria000.herokuapp.com/
+    mediums = request.form.getlist("medium")
     username = session["username"]
     userid =session["user_id"]
     sql = "INSERT INTO images (title,data,description,userid) VALUES (:title,:data,:description,:userid)"

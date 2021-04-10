@@ -22,7 +22,10 @@ On mahdollista ladata kuvia sivulle. HUOM! Liian isot tiedostot aiheuttavat tode
 
 HUOM! Kuvia ei voi vielä poistaa!
 
+Kaikki tiedot tallennetaan tietokantaan. 
+
 Sisäänkirjautunut käyttäjä pystyy näkemään kaikki kuvat.
+
 
 
 Sovellus voidaan testata [täällä](https://galleria000.herokuapp.com/).

@@ -40,16 +40,6 @@ def logout():
 def upload():
     return render_template("upload.html")
 
-@app.route("/uploadresult", methods=["POST"])
-def uploadresult():
-    filedata = request.files["file"].read()
-    file = make_response(bytes(filedata))
-    title = request.form["title"]
-    description = request.form["description"]
-    mediumid = request.form["medium"]
-    mediumresult = db.session.execute("SELECT name FROM categories WHERE id=:mediumid",{"mediumid":mediumid})
-    medium = mediumresult.fetchone()[0]
-    return render_template("uploadresult.html",file=file, title=title, description=description, medium=medium)
 
 @app.route("/register", methods=["POST","GET"])
 def register():
@@ -83,8 +73,7 @@ def send():
     title = request.form["title"]
     description = request.form["description"]
     data = file.read()
-    mediums = request.form.getlist("medium")
-    #mediumresult = db.session.execute("SELECT name FROM categories WHERE id=:mediumid",{"mediumid":mediumid})
+    mediums = request.form.getlist("medium")https://galleria000.herokuapp.com/
     username = session["username"]
     userid =session["user_id"]
     sql = "INSERT INTO images (title,data,description,userid) VALUES (:title,:data,:description,:userid)"

@@ -6,7 +6,21 @@
 <a href="/show/{{ id }}"><img src="/show/{{ id }}" width="50%"></a>
 
 <p>
-
+Artist: {{ artist }} #{{ artist_id }}
+{% if artist==session.username %}
+this is you
+{% endif %}
+<p>
+<a href="/favourite/{{ id }}">
+{% if favourite == "None" %}
+Add to favourites
+{% else %}
+Delete from favourites
+{% endif %}
+</a>
+<p>
+Description:
+<p>
 {{ description }}
 
 <p>

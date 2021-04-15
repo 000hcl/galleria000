@@ -79,7 +79,7 @@ def send():
     description = request.form["description"]
     data = file.read()
     mediums = request.form.getlist("medium")
-    username = session["username"]
+
     userid =session["user_id"]
     sql = "INSERT INTO images (title,data,description,userid) VALUES (:title,:data,:description,:userid)"
     db.session.execute(sql, {"title":title,"data":data,"description":description,"userid":userid})
@@ -102,6 +102,26 @@ def show(id):
 @app.route("/view/<int:id>")
 
 def view(id):
+    user_id = session["user_id"]
     description = db.session.execute("SELECT description FROM images WHERE id=:id",{"id":id}).fetchone()[0]
     mediums = db.session.execute("select distinct name from categories left join imagecategories on categories.id=imagecategories.catid where imagecategories.imgid=:id",{"id":id}).fetchall()
-    return render_template("view.html",id=id,description=description,mediums=mediums)
+    artist = db.session.execute("select username from images left join users on users.id=images.userid where images.id=:id",{"id":id}).fetchone()[0]
+    artist_id = db.session.execute("SELECT userid FROM images WHERE id=:id",{"id":id}).fetchone()[0]
+    favourite = db.session.execute("SELECT * FROM favourites WHERE userid=:userid and imgid=:imgid",{"userid":user_id,"imgid":id}).fetchone()
+    if favourite is None:
+        favourite="None"
+    else:
+        favourite="X"
+    return render_template("view.html",id=id,description=description,mediums=mediums,artist=artist,artist_id=artist_id,favourite=favourite)
+
+@app.route("/favourite/<int:id>")
+
+def favourite(id):
+    user_id = session["user_id"]
+    fav_result = db.session.execute("SELECT * from favourites where userid=:userid and imgid=:imgid",{"userid":user_id,"imgid":id}).fetchone()
+    if fav_result is None:
+        db.session.execute("INSERT INTO favourites (userid,imgid) VALUES(:userid,:imgid)",{"userid":user_id,"imgid":id})
+    else:
+        db.session.execute("DELETE FROM favourites where userid=:userid and imgid=:imgid",{"userid":user_id,"imgid":id})
+    db.session.commit()
+    return redirect("/view/"+str(id))

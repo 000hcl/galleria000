@@ -5,12 +5,9 @@ Hello, {{ session.username }}!
 <br>
  <a href="/logout">Log out</a>
 
-
-{% for i in range(count) %}
 <hr>
-<img src="/show/{{ id[i][0] }}" height="200"><a href="/view/{{ id[i][0] }}"> show full</a> 
-<p>Title: {{ title[i][0] }}
-<p>Description: {{ description[i][0] }}
-<p>
+{% for i in range(count) %}
+
+<a href="/view/{{ id[i][0] }}"><img src="/show/{{ id[i][0] }}" height="200"></a> 
 {% endfor %}
 

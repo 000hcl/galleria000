@@ -1,4 +1,10 @@
 <title> {{ title }} </title>
+
+<a href="/home">[Home]</a>
+
+<hr>
+
+
 {{ title }}
 
 <p>
@@ -6,11 +12,7 @@
 <a href="/show/{{ id }}"><img src="/show/{{ id }}" width="50%"></a>
 
 <p>
-Artist: {{ artist }} #{{ artist_id }}
-{% if artist==session.username %}
-this is you
-{% endif %}
-<p>
+By: {{ artist }} #{{ artist_id }}
 <a href="/favourite/{{ id }}">
 {% if favourite == "None" %}
 Add to favourites
@@ -32,5 +34,23 @@ Mediums:
 {% endfor %}
 
 <p>
-
+<hr>
 Comment:
+<form action="/view/{{ id }}" method="POST">
+<textarea name="comment" rows="3" cols="80"></textarea>
+<input type="submit" value="Submit">
+<br>
+{{ message }}
+<hr>
+</form>
+<p>
+{% for i in range(count) %}
+{{ comments_un[i][0] }} says:
+<p>
+{{ comments_c[i][0] }}
+<p>
+{% if comments_un[i][0] == session.username %}
+<a href="/deletecomment/{{ comments_id[i][0] }}">[Delete Comment]</a>
+{% endif %}
+<hr>
+{% endfor %}

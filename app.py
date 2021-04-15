@@ -67,10 +67,8 @@ def register():
 @app.route("/home",methods=["POST", "GET"])
 def home():
     id = db.session.execute("SELECT id FROM images").fetchall()
-    title = db.session.execute("SELECT title FROM images").fetchall()
-    description = db.session.execute("SELECT description FROM images").fetchall()
     count = db.session.execute("SELECT COUNT(*) FROM images").fetchone()[0]
-    return render_template("home.html", id=id, title=title, description=description, count=count)
+    return render_template("home.html", id=id, count=count)
 
 @app.route("/send",methods=["POST"])
 def send():
@@ -99,7 +97,7 @@ def show(id):
     return response
 
 
-@app.route("/view/<int:id>")
+@app.route("/view/<int:id>",methods=["POST","GET"])
 
 def view(id):
     user_id = session["user_id"]
@@ -107,12 +105,39 @@ def view(id):
     mediums = db.session.execute("select distinct name from categories left join imagecategories on categories.id=imagecategories.catid where imagecategories.imgid=:id",{"id":id}).fetchall()
     artist = db.session.execute("select username from images left join users on users.id=images.userid where images.id=:id",{"id":id}).fetchone()[0]
     artist_id = db.session.execute("SELECT userid FROM images WHERE id=:id",{"id":id}).fetchone()[0]
+    title = db.session.execute("SELECT title FROM images WHERE id=:id",{"id":id}).fetchone()[0]
     favourite = db.session.execute("SELECT * FROM favourites WHERE userid=:userid and imgid=:imgid",{"userid":user_id,"imgid":id}).fetchone()
+    message = ""
     if favourite is None:
         favourite="None"
     else:
         favourite="X"
-    return render_template("view.html",id=id,description=description,mediums=mediums,artist=artist,artist_id=artist_id,favourite=favourite)
+    if request.method == "POST":
+        comment = request.form["comment"]
+        if len(comment)<1 or len(comment)>1000:
+            message = "Comment must be 1-1000 characters long."
+        else:
+            db.session.execute("INSERT INTO comments (userid,imgid,comment) VALUES (:userid,:imgid,:comment)",{"userid":user_id,"imgid":id,"comment":comment})
+            db.session.commit()
+    sql = "FROM comments left join users on comments.userid=users.id WHERE imgid=:id ORDER BY comments.id DESC"
+    comments_un = db.session.execute("SELECT username "+sql,{"id":id}).fetchall()
+    comments_c = db.session.execute("SELECT comment "+sql,{"id":id}).fetchall()
+    comments_id = db.session.execute("SELECT comments.id "+sql,{"id":id}).fetchall()
+    count = db.session.execute("SELECT COUNT(*) FROM comments WHERE imgid=:imgid",{"imgid":id}).fetchone()[0]
+    return render_template("view.html",id=id,description=description,mediums=mediums,artist=artist,artist_id=artist_id,title=title,favourite=favourite,message=message,comments_un=comments_un,comments_c=comments_c,comments_id=comments_id,count=count)
+
+
+@app.route("/deletecomment/<int:id>",methods=["GET"])
+def deletecomment(id):
+    imgid = db.session.execute("SELECT imgid FROM comments WHERE id=:id",{"id":id}).fetchone()[0]
+    userid = db.session.execute("SELECT userid FROM comments WHERE id=:id",{"id":id}).fetchone()[0]
+    if userid != session["user_id"]:
+        return "Access denied."
+    db.session.execute("DELETE FROM comments WHERE id=:id",{"id":id})
+    db.session.commit()
+    return redirect("/view/"+str(imgid))
+
+
 
 @app.route("/favourite/<int:id>")
 

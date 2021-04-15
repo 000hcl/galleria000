@@ -1,0 +1,22 @@
+<title> {{ title }} </title>
+{{ title }}
+
+<p>
+
+<a href="/show/{{ id }}"><img src="/show/{{ id }}" width="50%"></a>
+
+<p>
+
+{{ description }}
+
+<p>
+Mediums:
+<br>
+{% for m in mediums %}
+{{ m[0] }}
+<br>
+{% endfor %}
+
+<p>
+
+Comment:

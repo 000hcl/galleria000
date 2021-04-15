@@ -7,7 +7,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL").replace("://","ql://",1)
+app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
+#.replace("://","ql://",1)
 
 app.secret_key = getenv("SECRET_KEY")
 db = SQLAlchemy(app)
@@ -88,6 +89,7 @@ def send():
     db.session.commit()
     return redirect("/home")
 @app.route("/show/<int:id>")
+
 def show(id):
     result = db.session.execute("SELECT data FROM images WHERE id=:id",{"id":id})
     data = result.fetchone()[0]
@@ -95,3 +97,11 @@ def show(id):
     response = make_response(bytes(data))
     response.headers.set("Content-Type","image/jpeg")
     return response
+
+
+@app.route("/view/<int:id>")
+
+def view(id):
+    description = db.session.execute("SELECT description FROM images WHERE id=:id",{"id":id}).fetchone()[0]
+    mediums = db.session.execute("select distinct name from categories left join imagecategories on categories.id=imagecategories.catid where imagecategories.imgid=:id",{"id":id}).fetchall()
+    return render_template("view.html",id=id,description=description,mediums=mediums)

@@ -47,7 +47,11 @@ def register():
        return render_template("register.html")
     if request.method == "POST":
         un = request.form["username"]
+        if len(un)>12 or len(un)<2:
+            return "Username must be between 2 and 12 characters long."
         pw = request.form["password"]
+        if len(pw)>24 or len(pw)<8:
+            return "Password must be between 8 and 24 characters long."
         pw2 = request.form["password2"]
         if pw != pw2:
             return "Passwords don't match."

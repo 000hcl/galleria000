@@ -25,6 +25,13 @@ By: {{ artist }} #{{ artist_id }}
 {% endif %}
 </form>
 
+<p>
+{% if artist_id == session.user_id %}
+<form action="/deleteimage/{{ id }}" method="POST">
+<input type="submit" value="Delete this image">
+</form>
+{% endif %}
+
 
 <p>
 Description:

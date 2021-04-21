@@ -15,7 +15,7 @@ INSERT INTO categories (name) VALUES ('Other');
 
 
 
-CREATE TABLE images (id SERIAL PRIMARY KEY, title TEXT, data BYTEA, description TEXT, userid INTEGER REFERENCES users);
+CREATE TABLE images (id SERIAL PRIMARY KEY, title TEXT, data BYTEA, description TEXT, userid INTEGER REFERENCES users, visible INTEGER);
 
 CREATE TABLE comments (id SERIAL PRIMARY KEY, userid INTEGER REFERENCES users, imgid INTEGER REFERENCES images, comment TEXT);
 

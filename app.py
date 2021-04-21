@@ -137,10 +137,21 @@ def deletecomment(id):
     db.session.commit()
     return redirect("/view/"+str(imgid))
 
+@app.route("/deleteimage/<int:id>",methods=["POST"])
+def deleteimage(id):
+    user_id = session["user_id"]
+    user = db.session.execute("SELECT userid FROM images WHERE id=:id",{"id":id}).fetchone()[0]
+    if user_id != user:
+        return "Access denied."
+    else:
+        db.session.execute("DELETE FROM images where userid=:id",{"id":id})
+        db.session.commit()
+        return redirect("/home")
+
+
 
 
 @app.route("/favourite/<int:id>",methods=["POST"])
-
 def favourite(id):
     user_id = session["user_id"]
     fav_result = db.session.execute("SELECT * from favourites where userid=:userid and imgid=:imgid",{"userid":user_id,"imgid":id}).fetchone()

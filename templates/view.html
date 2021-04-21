@@ -12,14 +12,20 @@
 <a href="/show/{{ id }}"><img src="/show/{{ id }}" width="50%"></a>
 
 <p>
+
 By: {{ artist }} #{{ artist_id }}
-<a href="/favourite/{{ id }}">
+
+<form action="/favourite/{{ id }}" method="POST">
 {% if favourite == "None" %}
-Add to favourites
+
+<input type="submit" value="Favourite">
 {% else %}
-Delete from favourites
+
+<input type="submit" value="Remove from favourites">
 {% endif %}
-</a>
+</form>
+
+
 <p>
 Description:
 <p>

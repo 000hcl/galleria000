@@ -139,7 +139,7 @@ def deletecomment(id):
 
 
 
-@app.route("/favourite/<int:id>")
+@app.route("/favourite/<int:id>",methods=["POST"])
 
 def favourite(id):
     user_id = session["user_id"]

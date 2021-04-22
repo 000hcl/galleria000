@@ -66,8 +66,8 @@ def register():
 
 @app.route("/home",methods=["POST", "GET"])
 def home():
-    id = db.session.execute("SELECT id FROM images").fetchall()
-    count = db.session.execute("SELECT COUNT(*) FROM images").fetchone()[0]
+    id = db.session.execute("SELECT id FROM images WHERE visible=1").fetchall()
+    count = db.session.execute("SELECT COUNT(*) FROM images WHERE visible=1").fetchone()[0]
     return render_template("home.html", id=id, count=count)
 
 @app.route("/send",methods=["POST"])
@@ -79,7 +79,7 @@ def send():
     mediums = request.form.getlist("medium")
 
     userid =session["user_id"]
-    sql = "INSERT INTO images (title,data,description,userid) VALUES (:title,:data,:description,:userid)"
+    sql = "INSERT INTO images (title,data,description,userid,visible) VALUES (:title,:data,:description,:userid,1)"
     db.session.execute(sql, {"title":title,"data":data,"description":description,"userid":userid})
     image_id = db.session.execute("SELECT currval(pg_get_serial_sequence('images','id'))").fetchone()[0]
     for m in mediums:
@@ -89,7 +89,7 @@ def send():
 @app.route("/show/<int:id>")
 
 def show(id):
-    result = db.session.execute("SELECT data FROM images WHERE id=:id",{"id":id})
+    result = db.session.execute("SELECT data FROM images WHERE id=:id AND visible=1",{"id":id})
     data = result.fetchone()[0]
 
     response = make_response(bytes(data))
@@ -100,6 +100,9 @@ def show(id):
 @app.route("/view/<int:id>",methods=["POST","GET"])
 
 def view(id):
+    visible = db.session.execute("SELECT visible FROM images WHERE id=:id",{"id":id}).fetchone()[0]
+    if visible == 0:
+        return redirect("/home")
     user_id = session["user_id"]
     description = db.session.execute("SELECT description FROM images WHERE id=:id",{"id":id}).fetchone()[0]
     mediums = db.session.execute("select distinct name from categories left join imagecategories on categories.id=imagecategories.catid where imagecategories.imgid=:id",{"id":id}).fetchall()
@@ -144,7 +147,7 @@ def deleteimage(id):
     if user_id != user:
         return "Access denied."
     else:
-        db.session.execute("DELETE FROM images where userid=:id",{"id":id})
+        db.session.execute("UPDATE images SET visible=0 where id=:id",{"id":id})
         db.session.commit()
         return redirect("/home")
 

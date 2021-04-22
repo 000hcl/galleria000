@@ -63,7 +63,9 @@ Comment:
 {{ comments_c[i][0] }}
 <p>
 {% if comments_un[i][0] == session.username %}
-<a href="/deletecomment/{{ comments_id[i][0] }}">[Delete Comment]</a>
+<form action="/deletecomment/{{ comments_id[i][0] }}" method="POST">
+<input type="submit" value="Delete Comment">
+</form>
 {% endif %}
 <hr>
 {% endfor %}

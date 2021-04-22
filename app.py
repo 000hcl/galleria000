@@ -129,7 +129,7 @@ def view(id):
     return render_template("view.html",id=id,description=description,mediums=mediums,artist=artist,artist_id=artist_id,title=title,favourite=favourite,message=message,comments_un=comments_un,comments_c=comments_c,comments_id=comments_id,count=count)
 
 
-@app.route("/deletecomment/<int:id>",methods=["GET"])
+@app.route("/deletecomment/<int:id>",methods=["POST"])
 def deletecomment(id):
     imgid = db.session.execute("SELECT imgid FROM comments WHERE id=:id",{"id":id}).fetchone()[0]
     userid = db.session.execute("SELECT userid FROM comments WHERE id=:id",{"id":id}).fetchone()[0]

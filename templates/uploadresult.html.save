@@ -1,7 +1,0 @@
-Title: {{ title }}
-<p>
-File: <img src="{{ file }}" alt="Im
-<p>
-Description: {{ description }}
-<p>
-Medium: {{ medium }}

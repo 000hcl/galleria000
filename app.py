@@ -15,20 +15,22 @@ db = SQLAlchemy(app)
 
 @app.route("/", methods=["GET","POST"])
 def index():
-    if request.method == "GET":
-        return render_template("index.html")
+    message = " "
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
         pwcheck = db.session.execute("SELECT password FROM users WHERE username=:username",{"username":username}).fetchone()
         if pwcheck == None:
-            return "Password or username invalid."
-        if check_password_hash(pwcheck[0],password):
+            message = "Password or username invalid."
+        
+        elif check_password_hash(pwcheck[0],password):
             session["username"] = username
             user_id = db.session.execute("SELECT id FROM users WHERE username=:username",{"username":username}).fetchone()[0]
             session["user_id"] = user_id
             return redirect("/home")
-        return "Password or username invalid."
+        message = "Password or username invalid."
+    return render_template("index.html",message=message)
+        
 
 
 @app.route("/logout")
@@ -36,60 +38,70 @@ def logout():
     del session["username"]
     return redirect("/")
 
-@app.route("/upload")
+@app.route("/upload",methods=["GET","POST"])
 def upload():
-    return render_template("upload.html",message=" ")
+    if request.method == "POST":
+        error = False
+        file = request.files["file"]
+        if not (file.filename.lower().endswith(".jpg") or file.filename.lower().endswith(".jpeg")):
+            message = "File should be a jpg or jpeg file."
+            error = True
+        title = request.form["title"]
+        description = request.form["description"]
+        data = file.read()
+        if len(data)>1000*1024:
+            message = "File is too big. Maximum dimensions are 1000x1024 pixels."
+            error = True
+        mediums = request.form.getlist("medium")
+        userid =session["user_id"]
+        sql = "INSERT INTO images (title,data,description,userid,visible) VALUES (:title,:data,:description,:userid,1)"
+        db.session.execute(sql, {"title":title,"data":data,"description":description,"userid":userid})
+        image_id = db.session.execute("SELECT currval(pg_get_serial_sequence('images','id'))").fetchone()[0]
+        for m in mediums:
+            db.session.execute("INSERT INTO imagecategories (imgid,catid) VALUES (:imgid,:catid)",{"imgid":image_id,"catid":m})
+        db.session.commit()
+        if not error:
+            return redirect("/home")
+    else:
+        message = " "
+    return render_template("upload.html",message=message)
 
 
 @app.route("/register", methods=["POST","GET"])
 def register():
-    if request.method == "GET":
-       return render_template("register.html")
     if request.method == "POST":
+        error = False
         un = request.form["username"]
         if len(un)>12 or len(un)<2:
-            return "Username must be between 2 and 12 characters long."
+            message = "Username must be between 2 and 12 characters long."
+            error= True
         pw = request.form["password"]
         if len(pw)>24 or len(pw)<8:
-            return "Password must be between 8 and 24 characters long."
+            message = "Password must be between 8 and 24 characters long."
+            error = True
         pw2 = request.form["password2"]
         if pw != pw2:
-            return "Passwords don't match."
+            message = "Passwords don't match."
+            error = True
         userexists = db.session.execute("SELECT username FROM users WHERE username=:un",{"un":un}).fetchone()
         if userexists != None:
-            return "Username already exists."
-        hash_value = generate_password_hash(pw)
-        db.session.execute("INSERT INTO users (username,password) VALUES (:un,:pw)", {"un":un,"pw":hash_value})
-        db.session.commit()
-        return redirect("/")
+            message = "Username already exists."
+            error = True
+        if not error:
+            hash_value = generate_password_hash(pw)
+            db.session.execute("INSERT INTO users (username,password) VALUES (:un,:pw)", {"un":un,"pw":hash_value})
+            db.session.commit()
+            return redirect("/")
+    else:
+        message = " "
+    return render_template("register.html",message=message)
 
 @app.route("/home",methods=["POST", "GET"])
 def home():
-    id = db.session.execute("SELECT id FROM images WHERE visible=1").fetchall()
-    count = db.session.execute("SELECT COUNT(*) FROM images WHERE visible=1").fetchone()[0]
-    return render_template("home.html", id=id, count=count)
+    id = db.session.execute("SELECT id FROM images WHERE visible=1 ORDER BY id DESC").fetchall()
+    return render_template("home.html", id=id)
 
-@app.route("/send",methods=["POST"])
-def send():
-    file = request.files["file"]
-    if not file.filename.endswith(".jpg"):
-        return "Please upload a jpg file."
-    title = request.form["title"]
-    description = request.form["description"]
-    data = file.read()
-    if len(data)>100*1024:
-        return "File is too big."
-    mediums = request.form.getlist("medium")
-    userid =session["user_id"]
-    sql = "INSERT INTO images (title,data,description,userid,visible) VALUES (:title,:data,:description,:userid,1)"
-    db.session.execute(sql, {"title":title,"data":data,"description":description,"userid":userid})
-    image_id = db.session.execute("SELECT currval(pg_get_serial_sequence('images','id'))").fetchone()[0]
-    for m in mediums:
-        db.session.execute("INSERT INTO imagecategories (imgid,catid) VALUES (:imgid,:catid)",{"imgid":image_id,"catid":m})
-    db.session.commit()
-    return redirect("/home")
 @app.route("/show/<int:id>")
-
 def show(id):
     result = db.session.execute("SELECT data FROM images WHERE id=:id AND visible=1",{"id":id})
     data = result.fetchone()[0]

@@ -66,7 +66,7 @@ def register():
 @app.route("/home",methods=["POST", "GET"])
 def home():
     id = db.session.execute("SELECT id FROM images WHERE visible=1").fetchall()
-    count = db.session.execute("SELECT COUNT(*) FROM images WHERE visible=1 ORDER BY id DESC").fetchone()[0]
+    count = db.session.execute("SELECT COUNT(*) FROM images WHERE visible=1").fetchone()[0]
     return render_template("home.html", id=id, count=count)
 
 @app.route("/send",methods=["POST"])

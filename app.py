@@ -38,7 +38,7 @@ def logout():
 
 @app.route("/upload")
 def upload():
-    return render_template("upload.html")
+    return render_template("upload.html",message=" ")
 
 
 @app.route("/register", methods=["POST","GET"])
@@ -66,17 +66,20 @@ def register():
 @app.route("/home",methods=["POST", "GET"])
 def home():
     id = db.session.execute("SELECT id FROM images WHERE visible=1").fetchall()
-    count = db.session.execute("SELECT COUNT(*) FROM images WHERE visible=1").fetchone()[0]
+    count = db.session.execute("SELECT COUNT(*) FROM images WHERE visible=1 ORDER BY id DESC").fetchone()[0]
     return render_template("home.html", id=id, count=count)
 
 @app.route("/send",methods=["POST"])
 def send():
     file = request.files["file"]
+    if not file.filename.endswith(".jpg"):
+        return "Please upload a jpg file."
     title = request.form["title"]
     description = request.form["description"]
     data = file.read()
+    if len(data)>100*1024:
+        return "File is too big."
     mediums = request.form.getlist("medium")
-
     userid =session["user_id"]
     sql = "INSERT INTO images (title,data,description,userid,visible) VALUES (:title,:data,:description,:userid,1)"
     db.session.execute(sql, {"title":title,"data":data,"description":description,"userid":userid})

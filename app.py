@@ -165,8 +165,49 @@ def deleteimage(id):
         db.session.commit()
         return redirect("/home")
 
+@app.route("/searchmedium",methods=["POST","GET"])
+def searchmedium():
+    message=""
+    if request.method == "POST":
+        medium = int(request.form["medium"])
+        order = request.form["sortby"]
+        sql = "SELECT DISTINCT images.id FROM imagecategories LEFT JOIN images ON imagecategories.imgid=images.id WHERE visible=1 "
+        sql += "AND catid=:medium "
+        sql += "ORDER BY id "+order
+        imgs = db.session.execute(sql,{"medium":medium}).fetchall()
+        if len(imgs)==0:
+            message="No matching results found."
 
+    else:
+        imgs = db.session.execute("SELECT id FROM images WHERE visible=1 ORDER BY id DESC").fetchall()
+    return render_template("search.html",imgs=imgs,message=message)
 
+@app.route("/searchtitle",methods=["POST","GET"])
+def searchtitle():
+    message=""
+    if request.method == "POST":
+        title = request.form["title"]
+        title = "%"+title+"%".lower()
+        order = request.form["sortby"]
+        sql = "SELECT DISTINCT id FROM images WHERE visible=1 "
+        sql += "AND title LIKE LOWER(:title) "
+        sql += "ORDER BY id "+order
+        imgs = db.session.execute(sql,{"title":title}).fetchall()
+        if len(imgs)==0:
+            message="No matching results found."
+
+    else:
+        imgs = db.session.execute("SELECT id FROM images WHERE visible=1 ORDER BY id DESC").fetchall()
+    return render_template("searchbytitle.html",imgs=imgs,message=message)
+
+@app.route("/favourites")
+def favourites():
+    message=""
+    userid = session["user_id"]
+    faves = db.session.execute("SELECT imgid FROM favourites LEFT JOIN images ON images.id=imgid WHERE favourites.userid=:userid AND visible=1 ORDER BY imgid DESC",{"userid":userid}).fetchall()
+    if len(faves)==0:
+        message="You have no favourites yet."
+    return render_template("favourites.html",id=faves,message=message)
 
 @app.route("/favourite/<int:id>",methods=["POST"])
 def favourite(id):

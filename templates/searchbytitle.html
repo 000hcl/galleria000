@@ -1,0 +1,29 @@
+<title>Galleria000 - Search</title>
+<form action="/searchtitle" method="POST">
+<a href="/home">[Home]</a>
+<hr>
+Search for an image.
+<p>
+Sort by:
+<br>
+
+
+Title: 
+<input type="text" name="title">
+<p>
+Sort by:
+<p>
+Newest first <input type="radio" name="sortby" value="DESC" checked>
+<br>
+Oldest first <input type="radio" name="sortby" value="ASC">
+<p>
+
+<input type="submit" value="Search">
+</form>
+<hr>
+
+{{ message }}
+
+{% for i in imgs %}
+<a href="/view/{{ i[0] }}"><img src="/show/{{ i[0] }}" height="200"></a> 
+{% endfor %}

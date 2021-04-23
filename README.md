@@ -18,14 +18,21 @@ Kuvia voidaan etsiä esimerkiksi kategorian tai nimen mukaan.
 
 On mahdollista luoda tunnuksen ja salasanan, ja kirjautua sisään.
 
-On mahdollista ladata kuvia sivulle. HUOM! Liian isot tiedostot aiheuttavat todennäköisesti virheen. Älä yritä ladata muuta kuin jpg-tiedostoja.
-
-HUOM! Kuvia ei voi vielä poistaa!
+On mahdollista ladata kuvia sivulle. Omia kuvia voi poistaa.
 
 Kaikki tiedot tallennetaan tietokantaan. 
 
 Sisäänkirjautunut käyttäjä pystyy näkemään kaikki kuvat.
 
+Kuvat voidaan etsiä nimen tai kategorian perusteella.
+
+On mahdollista lisätä kuvia suosikkeihin. Niitä voi myös poistaa.
+
+On mahdollista kommentoida kuvia. Omia kommentteja voi poistaa.
+
+
+
+HUOM! Tietokannan rakenne etc on päivitetty. Kaikki tiedot (esim. käyttäjät) ensimmäisestä versiosta poistettiin.
 
 
 Sovellus voidaan testata [täällä](https://galleria000.herokuapp.com/).

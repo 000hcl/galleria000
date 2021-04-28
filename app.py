@@ -48,7 +48,7 @@ def upload():
             error = True
         title = request.form["title"]
         if title is None:
-            message = Please add a title.
+            message = "Please add a title."
             error = True
         description = request.form["description"]
         data = file.read()

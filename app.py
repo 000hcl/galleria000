@@ -47,6 +47,9 @@ def upload():
             message = "File should be a jpg or jpeg file."
             error = True
         title = request.form["title"]
+        if title is None:
+            message = Please add a title.
+            error = True
         description = request.form["description"]
         data = file.read()
         if len(data)>1000*1024:
@@ -54,13 +57,13 @@ def upload():
             error = True
         mediums = request.form.getlist("medium")
         userid =session["user_id"]
-        sql = "INSERT INTO images (title,data,description,userid,visible) VALUES (:title,:data,:description,:userid,1)"
-        db.session.execute(sql, {"title":title,"data":data,"description":description,"userid":userid})
-        image_id = db.session.execute("SELECT currval(pg_get_serial_sequence('images','id'))").fetchone()[0]
-        for m in mediums:
-            db.session.execute("INSERT INTO imagecategories (imgid,catid) VALUES (:imgid,:catid)",{"imgid":image_id,"catid":m})
-        db.session.commit()
         if not error:
+            sql = "INSERT INTO images (title,data,description,userid,visible) VALUES (:title,:data,:description,:userid,1)"
+            db.session.execute(sql, {"title":title,"data":data,"description":description,"userid":userid})
+            image_id = db.session.execute("SELECT currval(pg_get_serial_sequence('images','id'))").fetchone()[0]
+            for m in mediums:
+                db.session.execute("INSERT INTO imagecategories (imgid,catid) VALUES (:imgid,:catid)",{"imgid":image_id,"catid":m})
+            db.session.commit()
             return redirect("/home")
     else:
         message = " "

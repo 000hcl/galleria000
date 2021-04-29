@@ -2,11 +2,57 @@ body {
     margin: auto;
     max-width: 60em;
     font-family: 'Times New Roman', Times, serif;
-    background-color: wheat;
+    background-color: rgb(185, 168, 136);
+    color: rgb(51, 41, 36);
 }
 .header {
     color: white;
     background: rgb(107, 86, 62);
-    padding: 2em 3em;
+    text-align: center;
+    padding: 1em 3em;
     font-size: 2em;
+}
+.content {
+    background: antiquewhite;
+    padding: 2em 2em;
+}
+form {
+    background: antiquewhite;
+    padding: 2em 2em;
+
+}
+form #button{
+    padding: 0.7em;
+    border: none;
+    text-align: center;
+    background: rgb(185, 168, 136);
+    color:rgb(51, 41, 36);
+}
+form #button:hover{
+    background: rgb(51, 41, 36);
+    color: white
+}
+nav{
+    background: rgb(107, 86, 62);
+    color:white;
+    font-weight: bold;
+    padding: 1em 1em;
+    padding-top: 0em;
+    text-align: center;
+    margin-bottom: 1em;
+    font-size: 1.3em;
+}
+nav a {
+    color: white;
+}
+nav a:hover {
+    color:rgb(51, 41, 36);
+}
+a {
+    font-weight: bold;
+    text-decoration: none;
+    color: rgb(51, 41, 36);
+}
+a:hover{
+    color: rgb(107, 86, 62);
 }

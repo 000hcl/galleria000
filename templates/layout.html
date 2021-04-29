@@ -7,19 +7,24 @@
 <div class="header">
 <h1>Galleria000</h1>
 </div>
-<hr>
 <body>
+<nav>
 <a href="/home">[Home]</a> | 
 <a href="/upload">[Upload]</a> | 
 <a href="/favourites">[Favourites]</a> | 
 <a href="/searchtitle">[Search by title]</a> | 
 <a href="/searchmedium">[Search by medium]</a> | 
 <a href="/logout">[Log out]</a>
-<hr>
+</nav>
+<div class="content">
 {% block content %}{% endblock %}
+</div>
 </body>
 {% else %}
+<div class="content">
 Please log in.
+
 <p>
 <a href="/">[Log in]</a>
+</div>
 {% endif %}

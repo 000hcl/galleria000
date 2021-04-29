@@ -1,0 +1,12 @@
+body {
+    margin: auto;
+    max-width: 60em;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: wheat;
+}
+.header {
+    color: white;
+    background: rgb(107, 86, 62);
+    padding: 2em 3em;
+    font-size: 2em;
+}

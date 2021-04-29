@@ -1,11 +1,14 @@
-<title>Galleria000 - Favourites</title>
+{% extends "layout.html" %}
 
-<a href="/home">[Home]</a>
-<hr>
-Your favourites:
+{% block title %}Favourites{% endblock %}
+
+{% block content %}
+
+<h2>Your favourites:</h2>
 <p>
 {{ message }}
 <p>
 {% for i in id %}
 <a href="/view/{{ i[0] }}"><img src="/show/{{ i[0] }}" height="200"></a> 
 {% endfor %}
+{% endblock %}

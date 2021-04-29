@@ -4,8 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 from os import getenv
 from werkzeug.security import check_password_hash, generate_password_hash
 
-
-
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL").replace("://","ql://",1)
 
@@ -29,6 +27,7 @@ def index():
             session["user_id"] = user_id
             return redirect("/home")
         message = "Password or username invalid."
+    
     return render_template("index.html",message=message)
         
 
@@ -36,6 +35,7 @@ def index():
 @app.route("/logout")
 def logout():
     del session["username"]
+    del session["user_id"]
     return redirect("/")
 
 @app.route("/upload",methods=["GET","POST"])

@@ -1,8 +1,10 @@
-<title>Galleria000 - Search</title>
+{% extends "layout.html" %}
+
+{% block title %}Search by medium{% endblock %}
+
+{% block content %}
 <form action="/searchmedium" method="POST">
-<a href="/home">[Home]</a>
-<hr>
-Search for an image.
+<h2>Search for an image.</h2>
 <p>
 Mediums:
 <br>
@@ -37,3 +39,4 @@ Oldest first <input type="radio" name="sortby" value="ASC">
 {% for i in imgs %}
 <a href="/view/{{ i[0] }}"><img src="/show/{{ i[0] }}" height="200"></a> 
 {% endfor %}
+{% endblock %}

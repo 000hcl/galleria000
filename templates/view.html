@@ -1,16 +1,12 @@
-<title> {{ title }} </title>
+{% extends "layout.html" %}
 
-<a href="/home">[Home]</a>
+{% block title %}{{ title }}{% endblock %}
 
-<hr>
-
-
-{{ title }}
-
-<p>
+{% block content %}
 
 <a href="/show/{{ id }}"><img src="/show/{{ id }}" width="50%"></a>
 
+<h2>{{ title }}</h2>
 <p>
 
 By: {{ artist }} #{{ artist_id }}
@@ -34,12 +30,12 @@ By: {{ artist }} #{{ artist_id }}
 
 
 <p>
-Description:
+<b>Description:</b>
 <p>
 {{ description }}
 
 <p>
-Mediums:
+<b>Mediums:</b>
 <br>
 {% for m in mediums %}
 {{ m[0] }}
@@ -48,7 +44,7 @@ Mediums:
 
 <p>
 <hr>
-Comment:
+<b>Comment:</b>
 <form action="/view/{{ id }}" method="POST">
 <textarea name="comment" rows="3" cols="80"></textarea>
 <input type="submit" value="Submit">
@@ -58,7 +54,7 @@ Comment:
 </form>
 <p>
 {% for i in range(count) %}
-{{ comments_un[i][0] }} says:
+<b>{{ comments_un[i][0] }} says:</b>
 <p>
 {{ comments_c[i][0] }}
 <p>
@@ -68,4 +64,6 @@ Comment:
 </form>
 {% endif %}
 <hr>
-{% endfor %}
+{% endfor %}<title> {{ title }} </title>
+
+{% endblock %}

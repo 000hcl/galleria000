@@ -1,6 +1,10 @@
-<title>Galleria000 - Upload</title>
+{% extends "layout.html" %}
+
+{% block title %}Upload{% endblock %}
+
+{% block content %}
 <form action="/upload" method="POST" enctype="multipart/form-data">
-Upload an image
+<h2>Upload an image.</h2>
 <p>
 Accepted file types: jpg/jpeg
 <br>
@@ -41,4 +45,4 @@ Medium:
 <input type="submit" value="Submit">
 </form>
 <p>
-<a href="/home">[Home]</a>
+{% endblock %}

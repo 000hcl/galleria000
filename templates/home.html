@@ -1,20 +1,9 @@
-<title>Galleria000 - Home</title>
-Hello, {{ session.username }}!
-<br>
-<a href="/upload"> upload </a>
-<br>
-<a href="/favourites">Favourites</a>
-<br>
-<a href="/searchtitle">Search by title</a>
-<br>
-<a href="/searchmedium">Search by medium</a>
-<br>
-<a href="/logout">Log out</a>
-<br>
+{% extends "layout.html" %}
 
-<hr>
+{% block title %}Home{% endblock %}
+
+{% block content %}
 {% for i in id %}
-
 <a href="/view/{{ i[0] }}"><img src="/show/{{ i[0] }}" height="200"></a> 
 {% endfor %}
-
+{% endblock %}

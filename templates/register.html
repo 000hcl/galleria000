@@ -1,5 +1,10 @@
 <form action="/register" method="POST">
-Register an account:
+{% if session.username %}
+You are already logged in.
+<p>
+<a href="/home">[Home]</a>
+{% else %}
+<h2>Register an account:</h2>
 <br>
 {{ message }}
 <br>
@@ -20,3 +25,4 @@ Confirm password:
 
 Already have an account?
 <a href="/">[Log in]</a>
+{% endif %}

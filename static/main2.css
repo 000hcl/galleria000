@@ -16,22 +16,6 @@ body {
     background: antiquewhite;
     padding: 2em 2em;
 }
-form {
-    background: antiquewhite;
-    padding: 2em 2em;
-
-}
-form #button{
-    padding: 0.7em;
-    border: none;
-    text-align: center;
-    background: rgb(185, 168, 136);
-    color:rgb(51, 41, 36);
-}
-form #button:hover{
-    background: rgb(51, 41, 36);
-    color: white
-}
 nav{
     background: rgb(107, 86, 62);
     color:white;
@@ -55,4 +39,25 @@ a {
 }
 a:hover{
     color: rgb(107, 86, 62);
+}
+input[type="submit"]{
+    padding: 0.7em;
+    border: none;
+    text-align: center;
+    background: rgb(185, 168, 136);
+    color:rgb(51, 41, 36);
+}
+input[type="submit"]:hover{
+    background: rgb(51, 41, 36);
+    color: white;
+}
+.comment{
+    display: block;
+    background: white;
+    padding: 1em;
+    margin: 1em
+
+}
+.comment #comment-button{
+    float: right;
 }

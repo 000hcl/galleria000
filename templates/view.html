@@ -50,20 +50,21 @@ By: {{ artist }} #{{ artist_id }}
 <input type="submit" value="Submit">
 <br>
 {{ message }}
-<hr>
 </form>
 <p>
 {% for i in range(count) %}
+<div class="comment">
 <b>{{ comments_un[i][0] }} says:</b>
 <p>
 {{ comments_c[i][0] }}
 <p>
 {% if comments_un[i][0] == session.username %}
 <form action="/deletecomment/{{ comments_id[i][0] }}" method="POST">
-<input type="submit" value="Delete Comment">
+<input id="comment-button" type="submit" value="Delete Comment">
+
 </form>
+</div>
 {% endif %}
-<hr>
 {% endfor %}<title> {{ title }} </title>
 
 {% endblock %}

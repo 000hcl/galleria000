@@ -29,5 +29,26 @@ Please log in.
 </div>
 {% endif %}
 
+<b>Comment:</b>
+<form action="/view/{{ id }}" method="POST">
+<textarea name="comment" rows="3" cols="80"></textarea>
+<input type="submit" value="Submit">
+<br>
+{{ message }}
+</form>
+<p>
+{% for i in range(count) %}
+<div class="comment">
+<b>{{ comments_un[i][0] }} says:</b>
+<p>
+{{ comments_c[i][0] }}
+<p>
+{% if comments_un[i][0] == session.username %}
+<form action="/deletecomment/{{ comments_id[i][0] }}" method="POST">
+<input id="comment-button" type="submit" value="Delete Comment">
+</div>
+</form>
+{% endif %}
+{% endfor %}<title> {{ title }} </title>
 
 </body>

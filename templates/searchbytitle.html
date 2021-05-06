@@ -23,9 +23,11 @@ Oldest first <input type="radio" name="sortby" value="ASC">
 
 {{ message }}
 
-<div class="gallery">
+
 {% for i in imgs %}
+<div class="gallery">
 <a href="/view/{{ i[0] }}"><img src="/show/{{ i[0] }}" height="200"></a> 
-{% endfor %}
 </div>
+{% endfor %}
+
 {% endblock %}

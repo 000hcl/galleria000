@@ -5,9 +5,8 @@
 {% block content %}
 
 {% for i in id %}
-<div class="gallery">
-<a href="/view/{{ i[0] }}"><img src="/show/{{ i[0] }}"></a> 
-</div>
+<a href="/view/{{ i[0] }}"><img src="/show/{{ i[0] }}" width="300"></a> 
+
 {% endfor %}
 
 {% endblock %}

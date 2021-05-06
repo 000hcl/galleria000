@@ -12,6 +12,7 @@
 
 By: {{ artist }} #{{ artist_id }}
 
+<div class="bns">
 <form action="/favourite/{{ id }}" method="POST">
 {% if favourite == "None" %}
 
@@ -28,7 +29,7 @@ By: {{ artist }} #{{ artist_id }}
 <input type="submit" value="Delete this image">
 </form>
 {% endif %}
-
+</div>
 
 <p>
 <b>Description:</b>

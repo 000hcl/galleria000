@@ -96,7 +96,7 @@ def register():
             db.session.commit()
             return redirect("/")
     else:
-        message = " "
+        message = ""
     return render_template("register.html",message=message)
 
 @app.route("/home",methods=["POST", "GET"])

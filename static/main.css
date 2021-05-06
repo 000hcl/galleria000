@@ -70,13 +70,8 @@ form #comment-button{
 hr{
     border-color: rgb(107, 86, 62);
 }
-.image{
+.bns{
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.gallery{
-    max-width: 30em;
+    float: right;
     margin: 1em;
-    max-height: 200px;
 }

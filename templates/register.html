@@ -16,9 +16,11 @@ You are already logged in.
 {% else %}
 <h2>Register an account:</h2>
 <br>
+{% if message != ""%}
 <div class="error">
 {{ message }}
 </div>
+{% endif %}
 <br>
 <b>Username:</b>
 <br>

@@ -6,6 +6,11 @@
 <h1>Galleria000</h1>
 </div>
 <div class="content">
+{% if message != ""%}
+<div class="error">
+{{ message }}
+</div>
+{% endif %}
 <p>
 <form action="/" method="POST">
 <h2>Log in:</h2>
@@ -23,10 +28,6 @@
 <input type="submit" value="Log in">
 
 </form>
-<p>
-<div class="error">
-{{ message }}
-</div>
 <p>
 <a href="/register">Register account</a>
 </div>

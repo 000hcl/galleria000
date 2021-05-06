@@ -3,6 +3,12 @@
 {% block title %}Upload{% endblock %}
 
 {% block content %}
+
+{% if message != ""%}
+<div class="error">
+{{ message }}
+</div>
+{% endif %}
 <form action="/upload" method="POST" enctype="multipart/form-data">
 <h2>Upload an image.</h2>
 <p>
@@ -13,10 +19,6 @@ Maximum dimensions allowed: 1000x1024
 File:
 <br>
 <input type="file" name="file">
-<br>
-<div class="error">
-{{ message }}
-</div>
 <p>
 Title:
 <br>

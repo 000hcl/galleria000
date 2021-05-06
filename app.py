@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 
 @app.route("/", methods=["GET","POST"])
 def index():
-    message = " "
+    message = ""
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
@@ -66,7 +66,7 @@ def upload():
             db.session.commit()
             return redirect("/home")
     else:
-        message = " "
+        message = ""
     return render_template("upload.html",message=message)
 
 

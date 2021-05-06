@@ -68,8 +68,13 @@ form #comment-button{
     padding: 1em;
 }
 hr{
-    border-color: rgb(51, 41, 36);
+    border-color: rgb(107, 86, 62);
 }
 .gallery{
     float: center;
+}
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

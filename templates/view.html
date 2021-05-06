@@ -3,14 +3,6 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<div class="image">
-<a href="/show/{{ id }}"><img src="/show/{{ id }}" width="50%"></a>
-</div>
-
-<h2>{{ title }}</h2>
-<p>
-
-By: {{ artist }} #{{ artist_id }}
 
 <div class="bns">
 <form action="/favourite/{{ id }}" method="POST">
@@ -31,6 +23,15 @@ By: {{ artist }} #{{ artist_id }}
 {% endif %}
 </div>
 
+<a href="/show/{{ id }}"><img src="/show/{{ id }}" width="50%"></a>
+
+
+<h2>{{ title }}</h2>
+<p>
+
+By: {{ artist }} #{{ artist_id }}
+
+
 <p>
 <b>Description:</b>
 <p>
@@ -46,12 +47,13 @@ By: {{ artist }} #{{ artist_id }}
 
 <p>
 <hr>
+<div class="error">
+{{ message }}
+</div>
 <b>Comment:</b>
 <form action="/view/{{ id }}" method="POST">
 <textarea name="comment" rows="3" cols="80"></textarea>
 <input type="submit" value="Submit">
-<br>
-{{ message }}
 </form>
 <p>
 {% for i in range(count) %}

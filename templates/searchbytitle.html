@@ -6,15 +6,12 @@
 <form action="/searchtitle" method="POST">
 <h2>Search for an image.</h2>
 <p>
-Sort by:
+<b>Title:</b>
 <br>
-
-
-Title: 
 <input type="text" name="title">
 <p>
-Sort by:
-<p>
+<b>Sort by:</b>
+<br>
 Newest first <input type="radio" name="sortby" value="DESC" checked>
 <br>
 Oldest first <input type="radio" name="sortby" value="ASC">
@@ -26,7 +23,9 @@ Oldest first <input type="radio" name="sortby" value="ASC">
 
 {{ message }}
 
+<div class="gallery">
 {% for i in imgs %}
 <a href="/view/{{ i[0] }}"><img src="/show/{{ i[0] }}" height="200"></a> 
 {% endfor %}
+</div>
 {% endblock %}

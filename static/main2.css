@@ -15,6 +15,7 @@ body {
 .content {
     background: antiquewhite;
     padding: 2em 2em;
+    margin-top: 2em;
 }
 nav{
     background: rgb(107, 86, 62);
@@ -23,7 +24,6 @@ nav{
     padding: 1em 1em;
     padding-top: 0em;
     text-align: center;
-    margin-bottom: 1em;
     font-size: 1.3em;
 }
 nav a {
@@ -40,24 +40,36 @@ a {
 a:hover{
     color: rgb(107, 86, 62);
 }
-input[type="submit"]{
+button, input[type="submit"]{
     padding: 0.7em;
     border: none;
     text-align: center;
     background: rgb(185, 168, 136);
     color:rgb(51, 41, 36);
 }
-input[type="submit"]:hover{
+button, input[type="submit"]:hover{
     background: rgb(51, 41, 36);
     color: white;
 }
 .comment{
-    display: block;
+    display: grid;
     background: white;
     padding: 1em;
     margin: 1em
 
 }
-.comment #comment-button{
+form #comment-button{
     float: right;
+}
+.error{
+    font-weight: bold;
+    background: rgb(212, 119, 150);
+    color: rgb(66, 0, 0);
+    padding: 1em;
+}
+hr{
+    border-color: rgb(51, 41, 36);
+}
+.gallery{
+    float: center;
 }

@@ -6,7 +6,7 @@
 <form action="/searchmedium" method="POST">
 <h2>Search for an image.</h2>
 <p>
-Mediums:
+<b>Mediums:</b>
 <br>
 <input type="radio" name="medium" value="1" checked> Traditional
 <br>
@@ -24,8 +24,8 @@ Mediums:
 <br>
 <input type="radio" name="medium" value="8"> Other
 <p>
-Sort by:
-<p>
+<b>Sort by:</b>
+<br>
 Newest first <input type="radio" name="sortby" value="DESC" checked>
 <br>
 Oldest first <input type="radio" name="sortby" value="ASC">
@@ -34,9 +34,10 @@ Oldest first <input type="radio" name="sortby" value="ASC">
 <input type="submit" value="Search by medium">
 </form>
 <hr>
-
 {{ message }}
+<div class="gallery">
 {% for i in imgs %}
 <a href="/view/{{ i[0] }}"><img src="/show/{{ i[0] }}" height="200"></a> 
 {% endfor %}
+</div>
 {% endblock %}

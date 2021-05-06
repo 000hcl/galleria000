@@ -1,4 +1,14 @@
+<!doctype html>
+<link rel="stylesheet" href="../static/main2.css">
+<title>Galleria000 - Register</title>
+<body>
+<div class="header">
+<h1>Galleria000</h1>
+</div>
+<div class="content">
 <form action="/register" method="POST">
+
+
 {% if session.username %}
 You are already logged in.
 <p>
@@ -6,23 +16,31 @@ You are already logged in.
 {% else %}
 <h2>Register an account:</h2>
 <br>
+<div class="error">
 {{ message }}
+</div>
 <br>
-Username:
+<b>Username:</b>
+<br>
 <input type="text" name="username">
 <br>
 Username must be 2-12 characters.
+<p>
+<b>Password:</b>
 <br>
-Password:
 <input type="password" name="password">
 <br>
 Password must be 8-24 characters.
-<br>
-Confirm password: 
+<p>
+<b>Confirm password:</b>
+<br> 
 <input type="password" name="password2">
+<p>
 <input type="submit" value="Submit">
 </form>
 
 Already have an account?
-<a href="/">[Log in]</a>
+<a href="/">Log in</a>
 {% endif %}
+</div>
+</body>

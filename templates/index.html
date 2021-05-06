@@ -1,22 +1,33 @@
+<!doctype html>
+<link rel="stylesheet" href="../static/main2.css">
 <title>Galleria000 - Log in</title>
+<body>
+<div class="header">
 <h1>Galleria000</h1>
+</div>
+<div class="content">
 <p>
 <form action="/" method="POST">
-Log in:
+<h2>Log in:</h2>
 <p>
-Username: 
+<b>Username: </b>
+<br>
 <input type="text" name="username">
-<br>
+<p>
 
-Password:
-<input type="password" name="password">
+<b>Password:</b>
 <br>
+<input type="password" name="password">
+<p>
 
 <input type="submit" value="Log in">
 
 </form>
 <p>
+<div class="error">
 {{ message }}
+</div>
 <p>
 <a href="/register">Register account</a>
-
+</div>
+</body>

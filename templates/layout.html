@@ -1,5 +1,5 @@
 <!doctype html>
-<link rel="stylesheet" href="../static/main1.css">
+<link rel="stylesheet" href="../static/main.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title> Galleria000 - {% block title %}{% endblock %}</title>
 {% if session.username %}
@@ -14,7 +14,7 @@
 <a href="/favourites"> Favourites </a> | 
 <a href="/searchtitle"> Search by title </a> | 
 <a href="/searchmedium"> Search by medium </a> | 
-<a href="/logout">[Log out]</a>
+<a href="/logout"> Log out </a>
 </nav>
 <div class="content">
 {% block content %}{% endblock %}
@@ -25,7 +25,7 @@
 Please log in.
 
 <p>
-<a href="/">[Log in]</a>
+<a href="/">Log in</a>
 </div>
 {% endif %}
 

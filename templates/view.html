@@ -16,7 +16,7 @@
 </form>
 
 <p>
-{% if artist_id == session.user_id %}
+{% if user_id == session.user_id %}
 <form action="/deleteimage/{{ id }}" method="POST">
 <input type="submit" value="Delete this image">
 </form>
@@ -29,7 +29,7 @@
 <h2>{{ title }}</h2>
 <p>
 
-By: {{ artist }} #{{ artist_id }}
+By: {{ user }} #{{ user_id }}
 
 
 <p>
@@ -47,9 +47,11 @@ By: {{ artist }} #{{ artist_id }}
 
 <p>
 <hr>
+{% if message != ""%}
 <div class="error">
 {{ message }}
 </div>
+{% endif %}
 <b>Comment:</b>
 <form action="/view/{{ id }}" method="POST">
 <textarea name="comment" rows="3" cols="80"></textarea>
@@ -57,6 +59,7 @@ By: {{ artist }} #{{ artist_id }}
 </form>
 <p>
 {% for i in range(count) %}
+
 <div class="comment">
 <b>{{ comments_un[i][0] }} says:</b>
 <p>
@@ -65,10 +68,12 @@ By: {{ artist }} #{{ artist_id }}
 {% if comments_un[i][0] == session.username %}
 <form action="/deletecomment/{{ comments_id[i][0] }}" method="POST">
 <input id="comment-button" type="submit" value="Delete Comment">
+{% endif %}
 
 </form>
 </div>
-{% endif %}
+
+
 {% endfor %}<title> {{ title }} </title>
 
 {% endblock %}

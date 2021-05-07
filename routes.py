@@ -101,7 +101,7 @@ def view(id):
     description = view[4]
     user = view[1]
     poster_id = view[2]
-    title = view[4]
+    title = view[3]
     if visible == 0:
         return redirect("/home")
     mediums = gallery.get_mediums(id)

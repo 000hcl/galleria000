@@ -41,6 +41,9 @@ def upload():
         message = "Please add a title."
         error = True
     description = request.form["description"]
+    if description == "":
+        message = "Please write a description."
+        error = True
     data = file.read()
     if len(data)>1000*1024:
         message = "File is too big. Maximum dimensions are 1000x1024 pixels."

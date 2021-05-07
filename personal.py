@@ -37,7 +37,7 @@ def upload():
         message = "File should be a jpg or jpeg file."
         error = True
     title = request.form["title"]
-    if title is None:
+    if title == "":
         message = "Please add a title."
         error = True
     description = request.form["description"]

@@ -21,9 +21,9 @@ def search_medium():
 
 def search_title():
     title = request.form["title"]
-    title = "%"+title+"%".lower()
+    title = "%"+title+"%"
     order = request.form["sortby"]
-    sql = "SELECT DISTINCT id FROM images WHERE visible=1 AND title LIKE LOWER(:title) ORDER BY id "+order
+    sql = "SELECT DISTINCT id FROM images WHERE visible=1 AND LOWER(title) LIKE LOWER(:title) ORDER BY id "+order
     return db.session.execute(sql,{"title":title}).fetchall()
 
 def get_comments(id):

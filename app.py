@@ -1,5 +1,4 @@
 from flask import Flask
-#from db import db
 from os import getenv
 
 app = Flask(__name__)

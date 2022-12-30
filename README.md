@@ -30,5 +30,3 @@ On mahdollista lisätä kuvia suosikkeihin. Niitä voi myös poistaa.
 
 On mahdollista kommentoida kuvia. Omia kommentteja voi poistaa.
 
-
-Sovellus voidaan testata [täällä](https://galleria000.herokuapp.com/).
